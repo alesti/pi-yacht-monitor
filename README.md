@@ -36,3 +36,10 @@ You should see something like this:
 |Temperature|14.5|
 |Bilge|dry|
 
+Folder-structure
+-----------------
+- actor: Scripts for performing actions (sending mail, upload to webserver,...)
+- captain: Daemon-scripts putting all together
+- collector: Scripts for collecting data from different sources
+- server: Webserver running local for showing data
+
