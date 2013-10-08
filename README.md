@@ -27,7 +27,7 @@ python collector/dummycollector.py
 python server/server.py
 ```
 Now the server will listen on port 8080. 
-Now just open a browser: http://<ip-of-raspberry>:8080
+Now just open a browser: http://xxx.xxx.xxx.xxx:8080
 You should see something like this:
 
 |||
