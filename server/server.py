@@ -1,9 +1,11 @@
 import web
 import redis
+import os
 
 urls = (
     '/', 'index',
-    '/about','about'
+    '/about','about',
+    '/webcam','webcam'
 )
 
 class about:
@@ -20,6 +22,12 @@ class index:
         bilge = "xxx" if r.get("boat.bilge") is None else r.get("boat.bilge")
         render = web.template.render('templates', base='layout')
         return render.index(voltage,temperature,bilge)
+
+class webcam:
+    def GET(self):
+        os.system("fswebcam -r 800x600 -d /dev/video0 ./static/webcam/webcam.jpg")
+        render = web.template.render('templates',base='layout')
+        return render.webcam("static/webcam/webcam.jpg")
 
 if __name__ == "__main__":
     app = web.application(urls, globals())
