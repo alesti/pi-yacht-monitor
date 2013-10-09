@@ -2,8 +2,15 @@ import web
 import redis
 
 urls = (
-    '/', 'index'
+    '/', 'index',
+    '/about','about'
 )
+
+class about:
+    def GET(self):
+        render = web.template.render('templates', base='layout')
+        return render.about()
+
 
 class index:
     def GET(self):
@@ -11,7 +18,7 @@ class index:
         voltage = "xxx" if r.get("boat.voltage") is None else r.get("boat.voltage") 
         temperature = "xxx" if r.get("boat.temperature") is None else r.get("boat.temperature")
         bilge = "xxx" if r.get("boat.bilge") is None else r.get("boat.bilge")
-        render = web.template.render('templates')
+        render = web.template.render('templates', base='layout')
         return render.index(voltage,temperature,bilge)
 
 if __name__ == "__main__":
