@@ -16,6 +16,9 @@ sudo easy_install redis
 
 # install web-framework for python
 sudo easy_install web.py
+
+# fswebcam is used for capturing webcam images
+sudo apt-get install fswebcam
 ```
 
 Run
