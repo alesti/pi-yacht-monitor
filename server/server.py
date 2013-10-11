@@ -5,7 +5,8 @@ import os
 urls = (
     '/', 'index',
     '/about','about',
-    '/webcam','webcam'
+    '/webcam','webcam',
+    '/config','config'
 )
 
 render = web.template.render('templates', base='layout')
@@ -28,6 +29,11 @@ class webcam:
     def GET(self):
         os.system("fswebcam -r 800x600 -d /dev/video0 ./static/webcam/webcam.jpg")
         return render.webcam("static/webcam/webcam.jpg")
+
+class config:
+    def GET(self):
+        return render.config()
+
 
 if __name__ == "__main__":
     app = web.application(urls, globals())
