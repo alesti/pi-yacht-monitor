@@ -36,11 +36,11 @@ Now the server will listen on port 8080.
 Now just open a browser: http://xxx.xxx.xxx.xxx:8080
 You should see something like this:
 
-|||
-|---|---|
-|Voltage|12.5|
-|Temperature|14.5|
-|Bilge|dry|
+|Sensor|Wert|Zeit der Erfassung|
+|---|---|---|
+|voltage|12.5|2013-10-11 21:59:29|
+|temperature|14.5|2013-10-11 21:59:29|
+|bilge|dry|2013-10-11 21:59:29|
 
 Folder-structure
 -----------------
