@@ -25,18 +25,12 @@ sudo apt-get install fswebcam
 
 #install git for easily download pi-yacht-monitor
 sudo apt-get install git-core
-
-
-
-
-
-
 ```
 
 Run
 ```
 #install via git:
-git@github.com:lnitram/pi-yacht-monitor.git
+git clone git@github.com:lnitram/pi-yacht-monitor.git
 
 cd pi-yacht-monitor
 
