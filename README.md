@@ -11,6 +11,9 @@ Install dependencies
 # install redis as main database
 sudo apt-get install redis-server
 
+# install python-setuptools
+sudo apt-get install python-setuptools
+
 # install python-bindings for redis
 sudo easy_install redis
 
