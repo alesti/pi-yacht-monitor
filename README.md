@@ -46,7 +46,7 @@ cd ..
 
 #run server
 cd server
-python server/server.py
+python server.py
 ```
 Now the server will listen on port 8080. 
 Now just open a browser: http://xxx.xxx.xxx.xxx:8080
