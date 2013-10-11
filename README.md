@@ -47,6 +47,14 @@ cd ..
 #run server
 cd server
 python server.py
+
+# if there is an error like "socket.error: No socket could be created"
+# there is already another process using port 8080. (You can find out
+# which one with "netstat -apn | grep 8080". For example the motion-
+# webcam-server is using port 8080, too.
+# to run the yacht-monitor on another port simply add the port
+# number as parameter:
+python server.py 8181
 ```
 Now the server will listen on port 8080. 
 Now just open a browser: http://xxx.xxx.xxx.xxx:8080
