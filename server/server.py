@@ -2,6 +2,7 @@ import web
 import redis
 import os
 from web import form
+import datetime
 
 urls = (
     '/', 'index',
@@ -25,10 +26,17 @@ class about:
 class index:
     def GET(self):
         r = redis.StrictRedis(host='localhost', port=6379, db=0)
-        voltage = "xxx" if r.get("boat.voltage") is None else r.get("boat.voltage") 
-        temperature = "xxx" if r.get("boat.temperature") is None else r.get("boat.temperature")
-        bilge = "xxx" if r.get("boat.bilge") is None else r.get("boat.bilge")
-        return render.index(voltage,temperature,bilge)
+
+        boatkeys = r.keys("boat.*")
+        rows = []
+        for boatkey in boatkeys:
+            row = r.hgetall(boatkey)
+            row["key"] = boatkey.split(".")[1]
+            row["timestamp"]  = datetime.datetime.fromtimestamp(int(row["time"])).strftime('%Y-%m-%d %H:%M:%S')
+            rows.append(row)
+            print row
+        print rows
+        return render.index(rows)
 
 class webcam:
     def GET(self):

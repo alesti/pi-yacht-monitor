@@ -1,4 +1,3 @@
-import redis
 import storagehandler
 
 storagehandler.save("boat.voltage",12.5)
