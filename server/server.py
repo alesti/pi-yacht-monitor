@@ -8,9 +8,11 @@ urls = (
     '/webcam','webcam'
 )
 
+render = web.template.render('templates', base='layout')
+
+
 class about:
     def GET(self):
-        render = web.template.render('templates', base='layout')
         return render.about()
 
 
@@ -20,13 +22,11 @@ class index:
         voltage = "xxx" if r.get("boat.voltage") is None else r.get("boat.voltage") 
         temperature = "xxx" if r.get("boat.temperature") is None else r.get("boat.temperature")
         bilge = "xxx" if r.get("boat.bilge") is None else r.get("boat.bilge")
-        render = web.template.render('templates', base='layout')
         return render.index(voltage,temperature,bilge)
 
 class webcam:
     def GET(self):
         os.system("fswebcam -r 800x600 -d /dev/video0 ./static/webcam/webcam.jpg")
-        render = web.template.render('templates',base='layout')
         return render.webcam("static/webcam/webcam.jpg")
 
 if __name__ == "__main__":
