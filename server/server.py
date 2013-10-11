@@ -32,7 +32,9 @@ class webcam:
 
 class config:
     def GET(self):
-        return render.config()
+        r = redis.StrictRedis(host='localhost', port=6379, db=0)
+        boatname = "xxx" if r.get("config.boat.name") is None else r.get("config.boat.name") 
+        return render.config(boatname)
 
 
 if __name__ == "__main__":
