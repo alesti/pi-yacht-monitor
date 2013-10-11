@@ -1,7 +1,6 @@
 import redis
+import storagehandler
 
-r = redis.StrictRedis(host='localhost', port=6379, db=0)
-
-r.set("boat.voltage",12.5)
-r.set("boat.temperature",14.5)
-r.set("boat.bilge","dry")
+storagehandler.save("boat.voltage",12.5)
+storagehandler.save("boat.temperature",14.5)
+storagehandler.save("boat.bilge","dry")
