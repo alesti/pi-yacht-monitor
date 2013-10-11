@@ -22,14 +22,32 @@ sudo easy_install web.py
 
 # fswebcam is used for capturing webcam images
 sudo apt-get install fswebcam
+
+#install git for easily download pi-yacht-monitor
+sudo apt-get install git-core
+
+
+
+
+
+
 ```
 
 Run
 ```
+#install via git:
+git@github.com:lnitram/pi-yacht-monitor.git
+
+cd pi-yacht-monitor
+
+
 #fill database with some dummy-values
-python collector/dummycollector.py
+cd collector
+python dummycollector.py
+cd ..
 
 #run server
+cd server
 python server/server.py
 ```
 Now the server will listen on port 8080. 
