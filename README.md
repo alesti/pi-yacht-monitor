@@ -30,7 +30,11 @@ sudo apt-get install git-core
 Run
 ```
 #install via git:
+#for contributers:
 git clone git@github.com:lnitram/pi-yacht-monitor.git
+
+#for all users (no write access to repository)
+git clone https://github.com/lnitram/pi-yacht-monitor.git
 
 cd pi-yacht-monitor
 
