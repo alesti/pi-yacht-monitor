@@ -8,7 +8,8 @@ urls = (
     '/', 'index',
     '/about','about',
     '/webcam','webcam',
-    '/config','config'
+    '/config','config',
+    '/collectors','collectors'
 )
 
 render = web.template.render('templates', base='layout')
@@ -26,7 +27,6 @@ class about:
 class index:
     def GET(self):
         r = redis.StrictRedis(host='localhost', port=6379, db=0)
-
         boatkeys = r.keys("boat.*")
         rows = []
         for boatkey in boatkeys:
@@ -43,12 +43,23 @@ class webcam:
         os.system("fswebcam -r 800x600 -d /dev/video0 ./static/webcam/webcam.jpg")
         return render.webcam("static/webcam/webcam.jpg")
 
-class config:
+class collectors:
+    def GET(self):
+        r = redis.StrictRedis(host='localhost', port=6379, db=0)
+        collectors = []
+        collkeys = r.keys("collector.*")
+        for collkey in collkeys:
+            row = r.hgetall(collkey)
+            row["key"] = collkey.split(".")[1]
+            collectors.append(row)
+        return render.collectors(collectors)
 
+class config:
     def GET(self):
         r = redis.StrictRedis(host='localhost', port=6379, db=0)
         boatname = r.get("config.boat.name")
         return render.config(get_nameform(boatname))
+
     def POST(self):
         r = redis.StrictRedis(host='localhost', port=6379, db=0)
         i = web.input()
