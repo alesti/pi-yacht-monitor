@@ -1,5 +1,6 @@
 import redis
 import time
+import os
 
 r = redis.StrictRedis(host='localhost', port=6379, db=0)
 
@@ -23,3 +24,7 @@ r.hset("collector.time","params","time")
 r.hset("collector.time","interval",40)
 r.hset("collector.time","lastrun",0)
 
+os.system("python collect_bilge.py bilge")
+os.system("python collect_temp.py temp")
+os.system("python collect_time.py time")
+os.system("python collect_voltage.py voltage")

@@ -41,12 +41,17 @@ cd pi-yacht-monitor
 
 #fill database with some dummy-values
 cd collector
-python dummycollector.py
+python install_collectors.py
+ 
 cd ..
 
 #run server
 cd server
 python server.py
+
+#run sensorscripts
+cd collector
+python run_collectors.py
 
 # if there is an error like "socket.error: No socket could be created"
 # there is already another process using port 8080. (You can find out
