@@ -1,0 +1,21 @@
+sudo apt-get install apache2 
+sudo apt-get install php5
+sudo apt-get install redis-server 
+sudo apt-get install php-pear
+sudo pear channel-discover pear.nrk.io
+sudo pear install nrk/Predis
+
+cd /var/www
+sudo vim redistest.php
+
+
+<?php
+
+require 'Predis/Autoloader.php';
+Predis\Autoloader::register();
+
+$redis = new Predis\Client();
+$redis->set("Hallo","Welt");
+echo $redis->get("Hallo");
+
+?> 
