@@ -2,6 +2,11 @@
 require 'Predis/Autoloader.php';
 Predis\Autoloader::register();
 $redis = new Predis\Client();
+session_start();
+
+if (!isset($_SESSION['login']) || $_SESSION['login'] != true) {
+  header("Location: login.php");
+}
 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
@@ -19,6 +24,7 @@ $redis = new Predis\Client();
 <li><a href="config.php">Konfiguration</a></li>
 <li><a href="collectors.php">Sensoren</a></li>
 <li><a href="info.php">Info</a></li>
+<li><a href="logout.php">Logout</a></li>
 </ul>
 </div>
 <div id="content">
