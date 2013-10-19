@@ -12,6 +12,31 @@ if (isset($_POST['smtp_save']) && $_POST['smtp_save'] == 'Speichern') {
     echo "<ul><li>Die Einstellungen wurden erfolgreich gespeichert</li></ul>";
 }
 
+if (isset($_POST['login_save']) && $_POST['login_save'] == 'Speichern') {
+    $login_user   = $_POST["login_user"];
+    $login_pass_1 = $_POST["login_pass_1"];
+    $login_pass_2 = $_POST["login_pass_2"];
+    
+    $redis->hset("config.user","username",$login_user);
+    $numerrors = 0;
+    $errormessage = "";
+
+    if ($login_pass_1 != "") {
+        if ($login_pass_1 != $login_pass_2) {
+            $numerrors ++;
+            $errormessage .= "Die Passwörter sind nicht gleich!<br/>";
+        } else {
+            $redis->hset("config.user","password",$login_pass_1);
+        }
+    }
+    echo "<ul>";
+    echo "<li>Username erfolgreich gespeichert</li>";
+    if ($numerrors > 0) echo "<li>$errormessage</li>"; else echo "<li>Passwort erfolgreich gespeichert</li>";
+    echo "</ul>";
+
+}
+
+
 $smtp_server = $redis->hget("config.email.smtp","server");
 $smtp_username = $redis->hget("config.email.smtp","username");
 $smtp_password = $redis->hget("config.email.smtp","password");
