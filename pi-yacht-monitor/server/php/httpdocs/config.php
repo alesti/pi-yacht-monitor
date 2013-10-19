@@ -1,13 +1,15 @@
 <?php
 require_once("../inc/head.inc.php");
+
 echo "<h1>Konfiguration</h1>";
 
 if (isset($_POST['smtp_save']) && $_POST['smtp_save'] == 'Speichern') {
-$redis->hset("config.email.smtp","server",$_POST['smtp_server']);
-$redis->hset("config.email.smtp","username",$_POST['smtp_username']);
-$redis->hset("config.email.smtp","password",$_POST['smtp_password']);
-$redis->hset("config.email.smtp","sender",$_POST['smtp_sender']);
-echo "<ul><li>Die Einstellungen wurden erfolgreich gespeichert</li></ul>";
+    $redis->hset("config.email.smtp","server",$_POST['smtp_server']);
+    $redis->hset("config.email.smtp","username",$_POST['smtp_username']);
+    $redis->hset("config.email.smtp","password",$_POST['smtp_password']);
+    $redis->hset("config.email.smtp","sender",$_POST['smtp_sender']);
+
+    echo "<ul><li>Die Einstellungen wurden erfolgreich gespeichert</li></ul>";
 }
 
 $smtp_server = $redis->hget("config.email.smtp","server");
@@ -37,8 +39,6 @@ echo "<tr><td>Passwort</td><td><input type=\"password\" name=\"login_pass_2\"/><
 echo "<tr><td>&nbsp;</td><td><input type=\"submit\" name=\"login_save\" value=\"Speichern\"/></td></tr>";
 echo "</table>";
 echo "</form>";
-
-
 
 require_once("../inc/foot.inc.php");
 ?>
