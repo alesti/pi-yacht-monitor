@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Service-Bereich"
+AuthUserFile /home/pi/.htusers
+Require user  Martin Ingo

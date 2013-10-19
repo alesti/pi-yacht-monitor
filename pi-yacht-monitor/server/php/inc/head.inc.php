@@ -1,3 +1,9 @@
+<?php
+require 'Predis/Autoloader.php';
+Predis\Autoloader::register();
+$redis = new Predis\Client();
+
+?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html>
 <head>
