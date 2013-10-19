@@ -1,83 +1,15 @@
 # pi-yacht-monitor
 
-Zum Projekt-Wiki:
-[https://github.com/lnitram/pi-yacht-monitor/wiki](https://github.com/lnitram/pi-yacht-monitor/wiki)
 
+Das Ziel dieses Projektes ist der Aufbau eines Yacht-Monitors auf Basis des Raspberry PI. Der Raspberry PI soll dabei an Bord mit allerlei Sensoren immer alles im Blick haben und auf kritische Ereignisse reagieren
 
-The idea of this project is to develop a framework to use the raspberry-pi as a yacht-monitoring and alerting system. Let's see what happens...
+Das Projekt wird aus drei Teilen bestehen:
 
-Dependencies / installation
----------------------------
+- Einem Projekt-Wiki, in dem alle möglichen Ideen, Tipps, Links, Anleitungen etc gesammelt werden
+  Zum Projekt-Wiki geht es hier:  [https://github.com/lnitram/pi-yacht-monitor/wiki](https://github.com/lnitram/pi-yacht-monitor/wiki)
 
-Install dependencies
-```
-# install redis as main database
-sudo apt-get install redis-server
+- Einem Script-Bereich mit einer losen Sammlung von Scripten zum Testen und Spielen mit der Hardware
+  Zu finden im Bereich "scripts" im Code-Repository
 
-# install python-setuptools
-sudo apt-get install python-setuptools
-
-# install python-bindings for redis
-sudo easy_install redis
-
-# install web-framework for python
-sudo easy_install web.py
-
-# fswebcam is used for capturing webcam images
-sudo apt-get install fswebcam
-
-#install git for easily download pi-yacht-monitor
-sudo apt-get install git-core
-```
-
-Run
-```
-#install via git:
-#for contributers:
-git clone git@github.com:lnitram/pi-yacht-monitor.git
-
-#for all users (no write access to repository)
-git clone https://github.com/lnitram/pi-yacht-monitor.git
-
-cd pi-yacht-monitor
-
-
-#fill database with some dummy-values
-cd collector
-python install_collectors.py
- 
-cd ..
-
-#run server
-cd server
-python server.py
-
-#run sensorscripts
-cd collector
-python run_collectors.py
-
-# if there is an error like "socket.error: No socket could be created"
-# there is already another process using port 8080. (You can find out
-# which one with "netstat -apn | grep 8080". For example the motion-
-# webcam-server is using port 8080, too.
-# to run the yacht-monitor on another port simply add the port
-# number as parameter:
-python server.py 8181
-```
-Now the server will listen on port 8080. 
-Now just open a browser: http://xxx.xxx.xxx.xxx:8080
-You should see something like this:
-
-|Sensor|Wert|Zeit der Erfassung|
-|---|---|---|
-|voltage|12.5|2013-10-11 21:59:29|
-|temperature|14.5|2013-10-11 21:59:29|
-|bilge|dry|2013-10-11 21:59:29|
-
-Folder-structure
------------------
-- actor: Scripts for performing actions (sending mail, upload to webserver,...)
-- captain: Daemon-scripts putting all together
-- collector: Scripts for collecting data from different sources
-- server: Webserver running local for showing data
-
+- Die Software "yacht-monitor", die man auf dem Raspberry PI installieren kann und die die Überwachung an Bord übernimmt.
+  Die Software befindet sich noch im frühen Entwicklungsstadium und kann noch nichts sinnvolles. Sobald sich das ändert, wird es an dieser Stelle bekannt gegeben.
