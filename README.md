@@ -5,7 +5,7 @@ Das Ziel dieses Projektes ist der Aufbau eines Yacht-Monitors auf Basis des Rasp
 
 Das Projekt wird aus drei Teilen bestehen:
 
-- Einem Projekt-Wiki, in dem alle möglichen Ideen, Tipps, Links, Anleitungen etc gesammelt werden
+- Einem Projekt-Wiki, in dem alle möglichen Ideen, Tipps, Links, Anleitungen etc gesammelt werden.
   Zum Projekt-Wiki geht es hier:  [https://github.com/lnitram/pi-yacht-monitor/wiki](https://github.com/lnitram/pi-yacht-monitor/wiki)
 
 - Einem Script-Bereich mit einer losen Sammlung von Scripten zum Testen und Spielen mit der Hardware
