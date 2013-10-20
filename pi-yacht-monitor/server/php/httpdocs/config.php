@@ -41,6 +41,7 @@ $smtp_server = $redis->hget("config.email.smtp","server");
 $smtp_username = $redis->hget("config.email.smtp","username");
 $smtp_password = $redis->hget("config.email.smtp","password");
 $smtp_sender = $redis->hget("config.email.smtp","sender");
+$login_user  = $redis->hget("config.user","username");
 
 echo "<h2>E-Mail-Server</h2>";
 echo "Hier werden die Server-Einstellungen für den E-Mail-Versand festgelegt.";
