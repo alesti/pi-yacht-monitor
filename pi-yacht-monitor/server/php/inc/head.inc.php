@@ -20,9 +20,8 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] != true) {
 <div id="navi">
 <ul>
 <li><a href="index.php">Startseite</a></li>
-<li><a href="webcam.php">Webcam</a></li>
 <li><a href="config.php">Konfiguration</a></li>
-<li><a href="collectors.php">Sensoren</a></li>
+<li><a href="i2c.php">I2C config</a></li>
 <li><a href="info.php">Info</a></li>
 <li><a href="logout.php">Logout</a></li>
 </ul>
