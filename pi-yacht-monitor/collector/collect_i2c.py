@@ -2,6 +2,7 @@ import storagehandler
 import sys
 import redis
 from smbus import SMBus
+import time
 
 r = redis.StrictRedis(host='localhost', port=6379, db=0)
 
@@ -23,8 +24,11 @@ def readHorterAnalogIn(config):
             in_name   = config[port + "name"]
             value = int("0x0" + str(i),16)
             bus.write_byte(address,value)
+            time.sleep(0.1)
             bus.read_byte(address)
+            time.sleep(0.1)
             voltage_raw = bus.read_byte(address)
+            print voltage_raw
             voltage = voltage_raw * in_factor
             storagehandler.save("boat." + in_name,voltage)
 
