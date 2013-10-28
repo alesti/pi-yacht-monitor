@@ -1,4 +1,6 @@
 <?php
+
+$section="i2c";
 require_once("../inc/head.inc.php");
 
 if (!isset($_GET['step'])) {

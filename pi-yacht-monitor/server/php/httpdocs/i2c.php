@@ -1,4 +1,5 @@
 <?php
+$section = "i2c";
 require_once("../inc/head.inc.php");
 echo "<h1>I2C-Komponenten</h1>";
 $keys = $redis->keys("config.i2c.*");
