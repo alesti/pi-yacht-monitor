@@ -1,7 +1,0 @@
-$def with (collectors)
-<h1>Aktive Sensorscripte</h1>
-<table border="1" cellspacing="0" cellpadding="3">
-<tr><th>Name</th><th>Script</th><th>Parameter</th><th>Intervall</th></tr>
-$for row in collectors:
-    <tr><td>$row['key']</td><td>$row['script']</td><td>$row['params']</td><td>$row['interval']</td></tr>
-</table>
