@@ -58,6 +58,7 @@ if  ($step == 1) {
       $redis->hset($key,"type",$typ);
       $redis->hset($key,"bus",$bus);
       $redis->hset($key,"address",$address);
+      $redis->hset($key,"name",$name);
       echo "Erfolgreich gepeichert";
     } else {
       echo "Nicht gespeichert. Name schon vorhanden!";

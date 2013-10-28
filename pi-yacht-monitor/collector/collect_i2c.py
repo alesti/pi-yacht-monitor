@@ -10,7 +10,7 @@ r = redis.StrictRedis(host='localhost', port=6379, db=0)
 # reads data from horter-analog-in-card
 # converts it with factor to human-readable voltage
 # save in redis with name from config
-def readHorterAnalogIn(config):
+def readPCF8591(config):
     print "Now reading HorterAnalogIn"
     address = int(config["address"],16)
     busnumber = int(config["bus"])
@@ -36,13 +36,13 @@ def readHorterAnalogIn(config):
 # reads data from horter-temp-sensor
 # converts to human-readable temp
 # save in redis with name from config
-def readHorterTemp(config):
+def readLM75(config):
     print "Now reading HorterTemp"
     address = int(config["address"],16)
     busnumber = int(config["bus"])
     name = config["name"]
     bus = SMBus(busnumber)
-    temp_raw = bus.read_word(address)
+    #temp_raw = bus.read_word(address)
     temp = 37 # replace with magic calculations
     storagehandler.save("boat." + name,temp)
 
@@ -55,10 +55,10 @@ for key in i2c_keys:
     if (m["active"] == "1"):     # only process when active
         sensor = m["type"]       # read sensor-type
         
-        if sensor == "horter-analog-in":
-            readHorterAnalogIn(m)
+        if sensor == "PCF8591":
+            readPCF8591(m)
  
-        if sensor == "horter-temp":
-           readHorterTemp(m)
+        if sensor == "LM75":
+           readLM75(m)
 
         # if sensor unknown => just ignore
