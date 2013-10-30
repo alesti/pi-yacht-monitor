@@ -17,7 +17,6 @@ foreach ($keys as $key) {
 
 }
 echo "</table>";
-echo "Hier sollte der output von i2cdetect stehen. Ist das nicht der Fall, dann muss in der php.ini der pfad '/usr/sbin' in den include_path eingetragen werden. Danach apache2 reload";
 echo "<br/><br/>i2cdetect -y 0";
 echo "<pre>";
 echo shell_exec("/usr/sbin/i2cdetect -y 0");
