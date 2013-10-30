@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import storagehandler
 import sys
 import redis
@@ -28,8 +29,7 @@ def readPCF8591(config):
             bus.read_byte(address)
             time.sleep(0.1)
             voltage_raw = bus.read_byte(address)
-            print voltage_raw
-            voltage = voltage_raw * in_factor
+            voltage = round(voltage_raw * in_factor,2)
             storagehandler.save("boat." + in_name,voltage)
 
 
@@ -47,18 +47,21 @@ def readLM75(config):
     storagehandler.save("boat." + name,temp)
 
 
-# Read all i2c-modules from redis
-i2c_keys = r.keys("config.i2c.*")
 
-for key in i2c_keys:
-    m = r.hgetall(key)           # get all modules for i2c
-    if (m["active"] == "1"):     # only process when active
-        sensor = m["type"]       # read sensor-type
-        
-        if sensor == "PCF8591":
-            readPCF8591(m)
- 
-        if sensor == "LM75":
-           readLM75(m)
-
-        # if sensor unknown => just ignore
+while True:
+    # Read all i2c-modules from redis
+    i2c_keys = r.keys("config.i2c.*")
+    
+    for key in i2c_keys:
+        m = r.hgetall(key)           # get all modules for i2c
+        if (m["active"] == "1"):     # only process when active
+            sensor = m["type"]       # read sensor-type
+            
+            if sensor == "PCF8591":
+                readPCF8591(m)
+     
+            if sensor == "LM75":
+               readLM75(m)
+    
+            # if sensor unknown => just ignore
+    time.sleep(10)
