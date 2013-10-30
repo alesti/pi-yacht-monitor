@@ -58,10 +58,16 @@ while True:
             sensor = m["type"]       # read sensor-type
             
             if sensor == "PCF8591":
-                readPCF8591(m)
+                try:
+                    readPCF8591(m)
+                except:
+                    pass
      
             if sensor == "LM75":
-               readLM75(m)
+               try:
+                   readLM75(m)
+               except:
+                   pass
     
             # if sensor unknown => just ignore
     time.sleep(10)
