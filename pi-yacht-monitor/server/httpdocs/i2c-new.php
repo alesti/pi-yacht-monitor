@@ -1,6 +1,7 @@
 <?php
-
 $section="i2c";
+
+require_once("./i2c/PCF8591.php");
 require_once("../inc/head.inc.php");
 
 if (!isset($_GET['step'])) {
@@ -35,22 +36,8 @@ if  ($step == 1) {
   $name = $_POST["name"];
   
   if ($typ == "PCF8591") {
-    echo "<form method=\"post\" action=\"?step=3\">";
-    echo "<table border=\"0\" cellspacing=\"0\" cellpadding=\"5\">";
-    echo "<tr><th>Port</th><th>Aktiv</th><th>Name</th><th>Faktor</th></tr>";
-    echo "<tr><td>1</td><td><input name=\"in-0-active\" type=\"checkbox\"/></td><td><input name=\"in-0-name\" type=\"text\"/></td><td><input name=\"in-0-factor\" type=\"text\"></td></tr>";
-    echo "<tr><td>2</td><td><input name=\"in-1-active\" type=\"checkbox\"/></td><td><input name=\"in-1-name\" type=\"text\"/></td><td><input name=\"in-1-factor\" type=\"text\"></td></tr>";
-    echo "<tr><td>3</td><td><input name=\"in-2-active\" type=\"checkbox\"/></td><td><input name=\"in-2-name\" type=\"text\"/></td><td><input name=\"in-2-factor\" type=\"text\"></td></tr>";
-    echo "<tr><td>4</td><td><input name=\"in-3-active\" type=\"checkbox\"/></td><td><input name=\"in-3-name\" type=\"text\"/></td><td><input name=\"in-3-factor\" type=\"text\"></td></tr>";
-    echo "<tr><td>&nbsp;</td><td>&nbsp;</td><td><input type=\"submit\" name=\"speichern\" value=\"speichern\"/></td><td>";
-    echo "<input type=\"hidden\" name=\"typ\" value=\"$typ\"/>";
-    echo "<input type=\"hidden\" name=\"bus\" value=\"$bus\"/>";
-    echo "<input type=\"hidden\" name=\"active\" value=\"$active\"/>";
-    echo "<input type=\"hidden\" name=\"name\" value=\"$name\"/>";
-    echo "<input type=\"hidden\" name=\"address\" value=\"$address\"/>";
-    echo "</td></tr>";
-    echo "</table>";
-    echo "</form>";
+    $mod = new PCF8591;
+    echo $mod->getNewForm("?step=3");
   } else if ($typ = "LM75") {
     if (!$redis->exists("config.i2c.$name")) {
       $key = "config.i2c.$name";
