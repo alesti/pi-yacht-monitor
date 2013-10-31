@@ -24,6 +24,7 @@ while go:
 if status == 0:
 			calcTemp(int(output,16))
 			sleep(1)
+                     go = True 
 		else:
 			print 'Fehler!'
 			print output
