@@ -16,7 +16,7 @@ if  ($step == 1) {
   echo "<form method=\"post\" action=\"?step=2\">";
   echo '<table border="0" cellspacing="0" cellpadding="5">';
   echo '<tr><td>Typ:</td><td>';
-  echo '<select name="typ">';
+  echo '<select name="type">';
   echo '<option value="">Bitte auswählen...</option>';
   echo '<option value="PCF8591">A/D Wandler PCF8591</option>';
   echo '<option value="LM75">Temperatursensor LM75</option>';
@@ -29,20 +29,25 @@ if  ($step == 1) {
   echo '</table>';
   echo "</form>";
 } else if ( $step == 2) {
-  $typ= $_POST["typ"];
+  $type= $_POST["type"];
   $bus= $_POST["bus"];
   $address = $_POST["address"];
   $active = isset($_POST["active"])?1:0;
   $name = $_POST["name"];
   
-  if ($typ == "PCF8591") {
+  if ($type == "PCF8591") {
     $mod = new PCF8591;
+    $mod->bus = $bus;
+    $mod->address = $address;
+    $mod->active = $active;
+    $mod->name = $name;
+    $mod->type = $type;
     echo $mod->getNewForm("?step=3");
-  } else if ($typ = "LM75") {
+  } else if ($type = "LM75") {
     if (!$redis->exists("config.i2c.$name")) {
       $key = "config.i2c.$name";
       $redis->hset($key,"active",$active);
-      $redis->hset($key,"type",$typ);
+      $redis->hset($key,"type",$type);
       $redis->hset($key,"bus",$bus);
       $redis->hset($key,"address",$address);
       $redis->hset($key,"name",$name);
@@ -68,7 +73,7 @@ if  ($step == 1) {
   $in3name   = $_POST["in-3-name"]; 
   $in3factor = $_POST["in-3-factor"];
   $address = $_POST["address"]; 
-  $typ = $_POST["typ"]; 
+  $type = $_POST["type"]; 
   $bus = $_POST["bus"]; 
   $active = $_POST["active"];
   $name = $_POST["name"];
@@ -77,7 +82,7 @@ if  ($step == 1) {
     $key = "config.i2c.$name";
 
     $redis->hset($key,"active",$active);
-    $redis->hset($key,"type",$typ);
+    $redis->hset($key,"type",$type);
     $redis->hset($key,"bus",$bus);
     $redis->hset($key,"address",$address);
     $redis->hset($key,"in0-active",$in0active);
