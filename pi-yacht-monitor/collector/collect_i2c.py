@@ -42,10 +42,16 @@ def readLM75(config):
     busnumber = int(config["bus"])
     name = config["name"]
     bus = SMBus(busnumber)
-    #temp_raw = bus.read_word(address)
-    temp = 37 # replace with magic calculations
+    raw_temp = bus.read_word(address)
+    vorkomme = raw_temp & 0xFF
+    nachkomma = raw_temp >> 15
+    temp = 0
+    if (vorkomma & 0x80) != 0x80:
+        temp = vorkomma + nachkomma * 0.5
+    else:
+        vorkomma = -((~vorkomma & 0xFF) + 1)
+        temp = vorkomma + nachkomma * 0.5
     storagehandler.save("boat." + name,temp)
-
 
 
 while True:
