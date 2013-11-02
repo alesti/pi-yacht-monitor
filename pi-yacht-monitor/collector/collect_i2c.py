@@ -53,6 +53,23 @@ def readLM75(config):
         temp = vorkomma + nachkomma * 0.5
     storagehandler.save("boat." + name,temp)
 
+def readPCF8574_IN(config):
+    print "Now reading DigitalIn"
+    address = int(config["address"],16)
+    busnumber = int(config["bus"])
+    bus = SMBus(busnumber)
+    state = bus.read_byte(address)
+    for i in range(0,8):
+        port = "in" + str(i) + "-"
+        in_active = config[port + "active"]
+        if in_active == "1":
+            in_name = config[port + "name"]
+            mask = state >> i
+            value = mask & 0 
+            storagehandler.save("boat." + in_name,value)
+    print state
+
+
 
 while True:
     # Read all i2c-modules from redis
@@ -72,6 +89,12 @@ while True:
             if sensor == "LM75":
                try:
                    readLM75(m)
+               except:
+                   pass
+
+            if sensor == "PCF8574_IN":
+               try: 
+                   readPCF8574_IN(m)
                except:
                    pass
     
