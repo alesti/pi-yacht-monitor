@@ -3,7 +3,6 @@ import storagehandler
 import sys
 import redis
 import smbus
-#from smbus import SMBus
 import time
 import logging
 
@@ -32,7 +31,7 @@ r = redis.StrictRedis(host='localhost', port=6379, db=0)
 def readPCF8591(config):
     address = int(config["address"],16)
     busnumber = int(config["bus"])
-    bus = SMBus(busnumber)
+    bus = smbus.SMBus(busnumber)
     logger.debug('Now reading HorterAnalogIn')
     logger.debug('Busnumber: ')
     logger.debug('Address: ')
