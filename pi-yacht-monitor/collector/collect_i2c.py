@@ -21,12 +21,7 @@ handler.setFormatter(formatter)
 # add the handlers to the logger
 logger.addHandler(handler)
 
-logger.info('Hello baby')
-
-
-
 r = redis.StrictRedis(host='localhost', port=6379, db=0)
-
 
 
 
@@ -104,14 +99,14 @@ def readPCF8574_OUT(config):
     logger.debug('--------------------')
     logger.debug('Now reading DigitalOut')
     #address = int(config["address"],16)
-    address =0x25
+    address=0x25
     busnumber = int(config["bus"])
     logger.debug('Busnumber: %s', busnumber)
     logger.debug('Address: %s', address)
-    logger.debug('Name: %s', name)
-    bus = SMBus(busnumber)
+    bus = smbus.SMBus(busnumber)
     state = bus.read_byte(address);
-    logger.debug('State: %s', state)
+    state2 = bus.read_byte(0x20)
+    logger.debug('State: %s', state2)
 
     for i in range(0,8):
         port = "in" + str(i) + "-"
@@ -120,6 +115,8 @@ def readPCF8574_OUT(config):
             in_name = config[port + "name"]
             value = 1&(state>>i)
             value = 0 if value==1 else 1
+            logger.debug('In_Name: %s', in_name)
+            logger.debug('Value: %s', value)
             storagehandler.save("boat." + in_name,value)
 
 logger.info('Start reading')
@@ -132,8 +129,6 @@ while True:
         m = r.hgetall(key)           # get all modules for i2c
         if (m["active"] == "1"):     # only process when active
             sensor = m["type"]       # read sensor-type
-
-
 
             if sensor == "PCF8591":
                 try:
