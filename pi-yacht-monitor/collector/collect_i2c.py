@@ -98,14 +98,12 @@ def readPCF8574_IN(config):
 def readPCF8574_OUT(config):
     logger.debug('--------------------')
     logger.debug('Now reading DigitalOut')
-    #address = int(config["address"],16)
-    address=0x25
+    address = int(config["address"],16)
     busnumber = int(config["bus"])
     logger.debug('Busnumber: %s', busnumber)
     logger.debug('Address: %s', address)
     bus = smbus.SMBus(busnumber)
     state = bus.read_byte(address);
-    state2 = bus.read_byte(0x20)
     logger.debug('State: %s', state2)
 
     for i in range(0,8):
