@@ -2,7 +2,8 @@
 import storagehandler
 import sys
 import redis
-from smbus import SMBus
+import smbus
+#from smbus import SMBus
 import time
 import logging
 
@@ -61,7 +62,7 @@ def readLM75(config):
     address = int(config["address"],16)
     busnumber = int(config["bus"])
     name = config["name"]
-    bus = SMBus(busnumber)
+    bus = smbus.SMBus(busnumber)
     logger.debug('Busnumber: %s', busnumber)
     logger.debug('Address: %s', address)
     logger.debug('Name: %s', name)
@@ -84,7 +85,7 @@ def readPCF8574_IN(config):
     logger('Now reading DigitalIn')
     address = int(config["address"],16)
     busnumber = int(config["bus"])
-    bus = SMBus(busnumber)
+    bus = smbus.SMBus(busnumber)
     state = bus.read_byte(address)
     for i in range(0,8):
         port = "in" + str(i) + "-"
@@ -104,7 +105,7 @@ def readPCF8574_OUT(config):
     logger.debug('Address: %s', address)
     bus = smbus.SMBus(busnumber)
     state = bus.read_byte(address);
-    logger.debug('State: %s', state2)
+    logger.debug('State: %s', state)
 
     for i in range(0,8):
         port = "in" + str(i) + "-"
