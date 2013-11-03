@@ -23,8 +23,6 @@ logger.addHandler(handler)
 
 r = redis.StrictRedis(host='localhost', port=6379, db=0)
 
-
-
 # reads data from horter-analog-in-card
 # converts it with factor to human-readable voltage
 # save in redis with name from config
@@ -112,12 +110,65 @@ def readPCF8574_OUT(config):
         if in_active == "1":
             in_name = config[port + "name"]
             value = 1&(state>>i)
+            value = 0 if value==1 else 0
+            logger.debug('In_Name: %s', in_name)
+            logger.debug('Value: %s', value)
+            storagehandler.save("boat." + in_name,value)
+
+def readPCF8574_OUT_INV(config):
+    logger.debug('--------------------')
+    logger.debug('Now reading DigitalOut invers')
+    address = int(config["address"],16)
+    busnumber = int(config["bus"])
+    logger.debug('Busnumber: %s', busnumber)
+    logger.debug('Address: %s', address)
+    bus = smbus.SMBus(busnumber)
+    state = bus.read_byte(address);
+    logger.debug('State dez: %s', state)
+    logger.debug('State bin: %s', bin(state))
+
+    for i in range(0,8):
+        port = "in" + str(i) + "-"
+        in_active = config[port + "active"]
+        if in_active == "1":
+            in_name = config[port + "name"]
+            value = 1&(state>>(7-i))
             value = 0 if value==1 else 1
             logger.debug('In_Name: %s', in_name)
             logger.debug('Value: %s', value)
             storagehandler.save("boat." + in_name,value)
 
-logger.info('Start reading')
+def writePCF8574_OUT_INV(config):
+    logger.debug('--------------------')
+    logger.debug('Now writing DigitalOut invers')
+    address = int(config["address"],16)
+    busnumber = int(config["bus"])
+    logger.debug('Busnumber: %s', busnumber)
+    logger.debug('Address: %s', address)
+    bus = smbus.SMBus(busnumber)
+    out1=""
+
+    for i in range(0,8):
+        port = "in" + str(i) + "-"
+        in_name = config[port + "name"]
+        logger.debug('IN_Name: %s', in_name)
+        key="boat." + in_name
+        value = str(r.hget(key,"value"))
+        logger.debug('Value: %s', value)
+        out1 += value
+
+    outinv=''.join('1' if x == '0' else '0' for x in out1)
+    outhex= hex(int(outinv, 2))
+    logger.debug('Out: %s', out1)
+    logger.debug('Out invers: %s', outinv)
+    logger.debug('Out Hex: %s', outhex)
+    a = bus.write_byte(address,outhex)
+
+
+
+logger.info('****************************************')
+logger.info('              Start reading')
+logger.info('****************************************')
 
 while True:
     # Read all i2c-modules from redis
@@ -149,6 +200,15 @@ while True:
             if sensor == "PCF8574_OUT":
                try:
                   readPCF8574_OUT(m)
+               except:
+                  pass
+
+            if sensor == "PCF8574_OUT_INV":
+               try:
+                  #readPCF8574_OUT_INV(m)
+                  writePCF8574_OUT_INV(m)
+
+
                except:
                   pass
             # if sensor unknown => just ignore
