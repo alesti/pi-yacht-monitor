@@ -70,7 +70,8 @@ def readLM75(config):
     logger.debug('Busnumber: %s', busnumber)
     logger.debug('Address: %s', address)
     logger.debug('Name: %s', name)
-    raw_temp = bus.read_word(address)
+    raw_temp = bus.read_byte(address);
+    logger.debug('Raw Temp: %s', raw_temp)
     vorkomma = raw_temp & 0xFF
     nachkomma = raw_temp >> 15
     temp = 0
@@ -84,6 +85,7 @@ def readLM75(config):
 
 
 def readPCF8574_IN(config):
+    logger.debug('--------------------')
     logger('Now reading DigitalIn')
     address = int(config["address"],16)
     busnumber = int(config["bus"])
@@ -99,11 +101,18 @@ def readPCF8574_IN(config):
 
 
 def readPCF8574_OUT(config):
+    logger.debug('--------------------')
     logger.debug('Now reading DigitalOut')
-    address = int(config["address"],16)
+    #address = int(config["address"],16)
+    address =0x25
     busnumber = int(config["bus"])
+    logger.debug('Busnumber: %s', busnumber)
+    logger.debug('Address: %s', address)
+    logger.debug('Name: %s', name)
     bus = SMBus(busnumber)
-    state = bus.read_byte(address)
+    state = bus.read_byte(address);
+    logger.debug('State: %s', state)
+
     for i in range(0,8):
         port = "in" + str(i) + "-"
         in_active = config[port + "active"]
@@ -123,7 +132,8 @@ while True:
         m = r.hgetall(key)           # get all modules for i2c
         if (m["active"] == "1"):     # only process when active
             sensor = m["type"]       # read sensor-type
-            logging.debug('sensor ',sensor)
+
+
 
             if sensor == "PCF8591":
                 try:
