@@ -64,11 +64,24 @@ def readPCF8574_IN(config):
         in_active = config[port + "active"]
         if in_active == "1":
             in_name = config[port + "name"]
-            mask = state >> i
-            value = mask & 0 
+            value = 1&(state>>i) 
             storagehandler.save("boat." + in_name,value)
-    print state
 
+
+def readPCF8574_OUT(config):
+    print "Now reading DigitalOut"
+    address = int(config["address"],16)
+    busnumber = int(config["bus"])
+    bus = SMBus(busnumber)
+    state = bus.read_byte(address)
+    for i in range(0,8):
+        port = "in" + str(i) + "-"
+        in_active = config[port + "active"]
+        if in_active == "1":
+            in_name = config[port + "name"]
+            value = 1&(state>>i)
+            value = 0 if value==1 else 1
+            storagehandler.save("boat." + in_name,value)
 
 
 while True:
@@ -97,6 +110,12 @@ while True:
                    readPCF8574_IN(m)
                except:
                    pass
+
+            if sensor == "PCF8574_OUT":
+               try:   
+                  readPCF8574_OUT(m)
+               except:
+                  pass
     
             # if sensor unknown => just ignore
     time.sleep(10)
