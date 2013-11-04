@@ -109,8 +109,7 @@ def readPCF8574_OUT(config):
         in_active = config[port + "active"]
         if in_active == "1":
             in_name = config[port + "name"]
-            value = 1&(state>>i)
-            value = 0 if value==1 else 0
+            value = 1&(state>>7-i)
             logger.debug('In_Name: %s', in_name)
             logger.debug('Value: %s', value)
             storagehandler.save("boat." + in_name,value)
