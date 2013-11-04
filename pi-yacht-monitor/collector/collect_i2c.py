@@ -8,11 +8,11 @@ import logging
 
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 
 # create a file handler
 handler = logging.FileHandler('/var/log/i2ccollect.log')
-handler.setLevel(logging.DEBUG)
+handler.setLevel(logging.INFO)
 
 # create a logging format
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -159,10 +159,11 @@ def writePCF8574_OUT_INV(config):
 
     outinv=''.join('1' if x == '0' else '0' for x in out1)
     outhex= hex(int(outinv, 2))
+    value = int(outhex,16)
     logger.debug('Out: %s', out1)
     logger.debug('Out invers: %s', outinv)
     logger.debug('Out Hex: %s', outhex)
-    a = bus.write_byte(address,outhex)
+    bus.write_byte(address,value)
 
 
 
@@ -205,10 +206,9 @@ while True:
 
             if sensor == "PCF8574_OUT_INV":
                try:
-                  #readPCF8574_OUT_INV(m)
                   writePCF8574_OUT_INV(m)
-
-
+                  time.sleep(1)
+                  readPCF8574_OUT_INV(m)
                except:
                   pass
             # if sensor unknown => just ignore
