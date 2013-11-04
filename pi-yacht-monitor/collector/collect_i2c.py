@@ -8,11 +8,11 @@ import logging
 
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
 
 # create a file handler
 handler = logging.FileHandler('/var/log/i2ccollect.log')
-handler.setLevel(logging.INFO)
+handler.setLevel(logging.DEBUG)
 
 # create a logging format
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -133,36 +133,34 @@ def readPCF8574_OUT_INV(config):
             in_name = config[port + "name"]
             value = 1&(state>>(7-i))
             value = 0 if value==1 else 1
-            logger.debug('In_Name: %s', in_name)
-            logger.debug('Value: %s', value)
+            try:
+                givenvalue=int(config[port + "givenvalue"])
+            except:
+                givenvalue=value
+            if value != givenvalue:
+                value = writePCF8574_OUT_INV(config,i,givenvalue)
+                time.sleep(0.1)
             storagehandler.save("boat." + in_name,value)
 
-def writePCF8574_OUT_INV(config):
-    logger.debug('--------------------')
-    logger.debug('Now writing DigitalOut invers')
+def writePCF8574_OUT_INV(config,bit,givenvalue):
     address = int(config["address"],16)
     busnumber = int(config["bus"])
-    logger.debug('Busnumber: %s', busnumber)
-    logger.debug('Address: %s', address)
     bus = smbus.SMBus(busnumber)
-    out1=""
-
-    for i in range(0,8):
-        port = "in" + str(i) + "-"
-        in_name = config[port + "name"]
-        logger.debug('IN_Name: %s', in_name)
-        key="boat." + in_name
-        value = str(r.hget(key,"value"))
-        logger.debug('Value: %s', value)
-        out1 += value
-
-    outinv=''.join('1' if x == '0' else '0' for x in out1)
-    outhex= hex(int(outinv, 2))
-    value = int(outhex,16)
-    logger.debug('Out: %s', out1)
-    logger.debug('Out invers: %s', outinv)
-    logger.debug('Out Hex: %s', outhex)
-    bus.write_byte(address,value)
+    state = bus.read_byte(address)
+    if givenvalue == 1:
+        mask = 1 << (7-bit)
+        mask = ~mask
+        state = state & mask
+        bus.write_byte(address,state)
+        time.sleep(0.1)
+    if givenvalue == 0:
+        mask = 1<<(7-bit)
+        state = state | mask
+        bus.write_byte(address,state)
+    state=bus.read_byte(address)
+    value = 1&(state>>(7-bit))
+    value = 0 if value==1 else 1
+    return value
 
 
 
@@ -183,33 +181,31 @@ while True:
                 try:
                     readPCF8591(m)
                 except:
-                    pass
+                   logger.error("Error while reading PCF8591") 
 
             if sensor == "LM75":
                try:
                    readLM75(m)
                except:
-                   pass
+                   logger.error("Error while reading LM75")
 
             if sensor == "PCF8574_IN":
                try:
                    readPCF8574_IN(m)
                except:
-                   pass
+                   logger.error("Error while reading PCF8574_IN")
 
             if sensor == "PCF8574_OUT":
                try:
                   readPCF8574_OUT(m)
                except:
-                  pass
+                  logger.error("Error while reading PCF8574_OUT")
 
             if sensor == "PCF8574_OUT_INV":
                try:
-                  writePCF8574_OUT_INV(m)
-                  time.sleep(1)
                   readPCF8574_OUT_INV(m)
                except:
-                  pass
+                  logger.error("Error while reading PCF8574_OUT_INV")
             # if sensor unknown => just ignore
 
-    time.sleep(10)
+    time.sleep(5)

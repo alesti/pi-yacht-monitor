@@ -2,7 +2,7 @@
 #$section="i2c";
 require_once("../inc/head.inc.php");
 
-$name="IOInvers";
+$name="Verbraucher";
 
 echo "<b>Port Management</b></br>";
 echo "<b>Device ".$name."</b>";

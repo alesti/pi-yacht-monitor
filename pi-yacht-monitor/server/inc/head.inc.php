@@ -21,6 +21,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] != true) {
 <div id="navi">
 <ul>
 <li><a href="index.php">Startseite</a></li>
+<li><a href="switches.php">Schalter</a></li>
 <li><a href="config.php">Konfiguration</a></li>
 <li><a href="i2c.php">I2C config</a>
 <?php
