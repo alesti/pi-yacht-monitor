@@ -1,7 +1,7 @@
 <?php
 require_once("../inc/head.inc.php");
 
-echo "<h1>Konfiguration</h1>";
+echo "<h1>".$lang['CONFIG_HOME']."</h1>";
 
 if (isset($_POST['smtp_save']) && $_POST['smtp_save'] == 'Speichern') {
     $redis->hset("config.email.smtp","server",$_POST['smtp_server']);
@@ -9,7 +9,7 @@ if (isset($_POST['smtp_save']) && $_POST['smtp_save'] == 'Speichern') {
     $redis->hset("config.email.smtp","password",$_POST['smtp_password']);
     $redis->hset("config.email.smtp","sender",$_POST['smtp_sender']);
 
-    echo "<ul><li>Die Einstellungen wurden erfolgreich gespeichert</li></ul>";
+    echo "<ul><li>".$lang['CONF_SAVE_SUCCESS']."</li></ul>";
 }
 
 if (isset($_POST['login_save']) && $_POST['login_save'] == 'Speichern') {
@@ -31,7 +31,7 @@ if (isset($_POST['login_save']) && $_POST['login_save'] == 'Speichern') {
     }
     echo "<ul>";
     echo "<li>Username erfolgreich gespeichert</li>";
-    if ($numerrors > 0) echo "<li>$errormessage</li>"; else echo "<li>Passwort erfolgreich gespeichert</li>";
+    if ($numerrors > 0) echo "<li>$errormessage</li>"; else echo "<li>".$lang['CONF_SAVEPW_SUCCESS']."</li>";
     echo "</ul>";
 
 }
@@ -43,14 +43,14 @@ $smtp_password = $redis->hget("config.email.smtp","password");
 $smtp_sender = $redis->hget("config.email.smtp","sender");
 $login_user  = $redis->hget("config.user","username");
 
-echo "<h2>E-Mail-Server</h2>";
-echo "Hier werden die Server-Einstellungen für den E-Mail-Versand festgelegt.";
+echo "<h2>".$lang['CONF_EMAIL_HOME']."</h2>";
+echo $lang['CONF_EMAIL_DESCRIPTION'];
 echo "<form action=\"\" method=\"post\">";
 echo "<table border=\"0\" cellspacing=\"0\" cellpadding=\"5\">";
-echo "<tr><td>Server</td><td><input type=\"text\" name=\"smtp_server\" value = \"$smtp_server\"/></td></tr>";
-echo "<tr><td>Username</td><td><input type=\"text\" name=\"smtp_username\" value =\"$smtp_username\"/></td></tr>";
-echo "<tr><td>Passwort</td><td><input type=\"password\" name=\"smtp_password\" value =\"$smtp_password\"/></td></tr>";
-echo "<tr><td>E-Mail</td><td><input type=\"text\" name=\"smtp_sender\" value = \"$smtp_sender\"/></td></tr>";
+echo "<tr><td>".$lang['CONF_EMAIL_SERVER']."</td><td><input type=\"text\" name=\"smtp_server\" value = \"$smtp_server\"/></td></tr>";
+echo "<tr><td>".$lang['USER']."</td><td><input type=\"text\" name=\"smtp_username\" value =\"$smtp_username\"/></td></tr>";
+echo "<tr><td>".$lang['PW']."</td><td><input type=\"password\" name=\"smtp_password\" value =\"$smtp_password\"/></td></tr>";
+echo "<tr><td>".$lang['EMAIL']."</td><td><input type=\"text\" name=\"smtp_sender\" value = \"$smtp_sender\"/></td></tr>";
 echo "<tr><td>&nbsp;</td><td><input type=\"submit\" name=\"smtp_save\" value = \"Speichern\"/></td></tr>";
 echo "</table>";
 echo "</form>";
