@@ -11,7 +11,7 @@
 ### END INIT INFO
  
 # Change the next lines to suit where you install your script 
-DIR=/root/yacht-monitor/pi-yacht-monitor/pi-yacht-monitor/collector
+DIR=/home/pi/pi-yacht-monitor/pi-yacht-monitor/collector
 DAEMON=$DIR/collect_i2c.py 
 DAEMON_NAME=i2ccollect
  
