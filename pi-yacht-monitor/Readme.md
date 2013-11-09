@@ -50,56 +50,38 @@ sudo apt-get install apache2 apache2-doc apache2-utils
 
 #install php5
 sudo apt-get install libapache2-mod-php5 php5 php-pear php5-xcache
-```
 
-Run
-```
-#install via git:
+#install redis-support for php
+sudo pear channel-discover pear.nrk.io
+sudo pear install nrk/Predis 
+
+# for contributors only
+# set up git user and email
+git config --global user.name "yourname"
+git config --global user.email "youremail"
+
+#install yacht-monitor
+
+cd /home/pi
+
 #for contributers:
 git clone git@github.com:lnitram/pi-yacht-monitor.git
 
-#for all users (no write access to repository)
+#install for all users (no write access to repository)
 git clone https://github.com/lnitram/pi-yacht-monitor.git
 
-cd pi-yacht-monitor
+#create symlink in /var/www
+sudo ln -s /home/pi/pi-yacht-monitor/pi-yacht-monitor/server/httpdocs /var/www/yacht-monitor
 
+#open your browser and visit:
+#http://ip.of.your.raspberry/yacht-monitor
+#username: yacht-monitor
+#password: yacht-monitor
+#please change this first using "Configuration"
 
-#fill database with some dummy-values
-cd collector
-python install_collectors.py
- 
-cd ..
-
-#run server
-cd server
-python server.py
-
-#run sensorscripts
-cd collector
-python run_collectors.py
-
-# if there is an error like "socket.error: No socket could be created"
-# there is already another process using port 8080. (You can find out
-# which one with "netstat -apn | grep 8080". For example the motion-
-# webcam-server is using port 8080, too.
-# to run the yacht-monitor on another port simply add the port
-# number as parameter:
-python server.py 8181
+#install i2c-daemon
+sudo cp /home/pi/pi-yacht-monitor/pi-yacht-monitor/collector/i2ccollect /etc/init.d/
+sudo chmod +x /etc/init.d/i2ccollect
+chmod +x /home/pi/pi-yacht-monitor/pi-yacht-monitor/collector/i2ccollect
+sudo /etc/init.d/i2ccollect start
 ```
-Now the server will listen on port 8080. 
-Now just open a browser: http://xxx.xxx.xxx.xxx:8080
-You should see something like this:
-
-|Sensor|Wert|Zeit der Erfassung|
-|---|---|---|
-|voltage|12.5|2013-10-11 21:59:29|
-|temperature|14.5|2013-10-11 21:59:29|
-|bilge|dry|2013-10-11 21:59:29|
-
-Folder-structure
------------------
-- actor: Scripts for performing actions (sending mail, upload to webserver,...)
-- captain: Daemon-scripts putting all together
-- collector: Scripts for collecting data from different sources
-- server: Webserver running local for showing data
-
