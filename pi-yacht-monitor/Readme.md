@@ -5,7 +5,15 @@ Dependencies / installation
 
 Install dependencies
 ```
-# install redis as main database
+#system update
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get dist-upgrade
+
+#install git
+sudo apt-get install git-core
+
+# install redis-database
 sudo apt-get install redis-server
 
 # install python-setuptools
@@ -14,14 +22,34 @@ sudo apt-get install python-setuptools
 # install python-bindings for redis
 sudo easy_install redis
 
-# install web-framework for python
-sudo easy_install web.py
+#install i2c - support
+sudo apt-get install i2c-tools
 
-# fswebcam is used for capturing webcam images
-sudo apt-get install fswebcam
+#remove i2c from blacklist:
+sudo nano /etc/modprobe.d/raspi-blacklist.conf
+#add "#" before blacklist spi-bcm2708
+#add "#" before blacklist i2c-bcm2708
+#save and exit
 
-#install git for easily download pi-yacht-monitor
-sudo apt-get install git-core
+#add i2c-dev to modules
+sudo nano /etc/modules
+# add "i2c-dev"
+# save and exit
+
+#put pi-user in i2c-group
+sudo adduser pi i2c
+
+#install python i2c support
+sudo apt-get install python-smbus
+
+#reboot
+sudo reboot
+
+#install apache
+sudo apt-get install apache2 apache2-doc apache2-utils
+
+#install php5
+sudo apt-get install libapache2-mod-php5 php5 php-pear php5-xcache
 ```
 
 Run
