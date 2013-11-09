@@ -63,7 +63,7 @@ def readLM75(config):
     logger.debug('Busnumber: %s', busnumber)
     logger.debug('Address: %s', address)
     logger.debug('Name: %s', name)
-    raw_temp = bus.read_byte(address);
+    raw_temp = bus.read_word_data(address, 0)
     logger.debug('Raw Temp: %s', raw_temp)
     vorkomma = raw_temp & 0xFF
     nachkomma = raw_temp >> 15
