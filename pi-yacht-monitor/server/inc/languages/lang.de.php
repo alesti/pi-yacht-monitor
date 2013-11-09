@@ -42,10 +42,10 @@ $lang['SW_ISTWERT'] = 'Istwert';
 
 $lang['CONF_HOME'] = 'Konfiguration';
 $lang['CONF_EMAIL_HOME'] = 'E-Mail-Server';
-$lang['CONF_EMAIL_DESCRIPTION'] = 'Hier werden die Server-Einstellungen für den E-Mail-Versand festgelegt.';
+$lang['CONF_EMAIL_DESCRIPTION'] = 'Hier werden die Server-Einstellungen fÃ¼r den E-Mail-Versand festgelegt.';
 $lang['CONF_EMAIL_SERVER'] = 'Server';
 $lang['CONF_USER_HOME'] = 'Benutzer Zugang';
-$lang['CONF_USER_DESCRIPTION'] = 'Hier werden Username und Passwort zum Einloggen in diese Weboberfläche festgelegt';
+$lang['CONF_USER_DESCRIPTION'] = 'Hier werden Username und Passwort zum Einloggen in diese WeboberflÃ¤che festgelegt';
 
 // I2C Konfiguration
 
