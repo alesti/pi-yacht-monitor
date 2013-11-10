@@ -185,14 +185,14 @@ if  ($step == 1) {
       $redis->hset($key,"type",$type);
       $redis->hset($key,"bus",$bus);
       $redis->hset($key,"address",$address);
-      $redis->hset($key,"in0-active",$in0active); $redis->hset($key,"in0-name",$in0name);
-      $redis->hset($key,"in1-active",$in1active); $redis->hset($key,"in1-name",$in1name);
-      $redis->hset($key,"in2-active",$in2active); $redis->hset($key,"in2-name",$in2name);
-      $redis->hset($key,"in3-active",$in3active); $redis->hset($key,"in3-name",$in3name);
-      $redis->hset($key,"in4-active",$in4active); $redis->hset($key,"in4-name",$in4name);
-      $redis->hset($key,"in5-active",$in5active); $redis->hset($key,"in5-name",$in5name);
-      $redis->hset($key,"in6-active",$in6active); $redis->hset($key,"in6-name",$in6name);
-      $redis->hset($key,"in7-active",$in7active); $redis->hset($key,"in7-name",$in7name);
+      $redis->hset($key,"in0-active",$in0active); $redis->hset($key,"in0-name",$in0name);$redis->hset($key,"in0-givenvalue",0);
+      $redis->hset($key,"in1-active",$in1active); $redis->hset($key,"in1-name",$in1name);$redis->hset($key,"in1-givenvalue",0);
+      $redis->hset($key,"in2-active",$in2active); $redis->hset($key,"in2-name",$in2name);$redis->hset($key,"in2-givenvalue",0);
+      $redis->hset($key,"in3-active",$in3active); $redis->hset($key,"in3-name",$in3name);$redis->hset($key,"in3-givenvalue",0);
+      $redis->hset($key,"in4-active",$in4active); $redis->hset($key,"in4-name",$in4name);$redis->hset($key,"in4-givenvalue",0);
+      $redis->hset($key,"in5-active",$in5active); $redis->hset($key,"in5-name",$in5name);$redis->hset($key,"in5-givenvalue",0);
+      $redis->hset($key,"in6-active",$in6active); $redis->hset($key,"in6-name",$in6name);$redis->hset($key,"in6-givenvalue",0);
+      $redis->hset($key,"in7-active",$in7active); $redis->hset($key,"in7-name",$in7name);$redis->hset($key,"in7-givenvalue",0);
       echo "Erfolgreich gespeichert";
   }
 }
