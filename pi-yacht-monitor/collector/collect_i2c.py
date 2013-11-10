@@ -43,9 +43,9 @@ def readPCF8591(config):
             in_name   = config[port + "name"]
             value = int("0x0" + str(i),16)
             bus.write_byte(address,value)
-            time.sleep(0.1)
+            time.sleep(0.2)
             bus.read_byte(address)
-            time.sleep(0.1)
+            time.sleep(0.2)
             voltage_raw = bus.read_byte(address)
             voltage = round(voltage_raw * in_factor,2)
             storagehandler.save("boat." + in_name,voltage)
