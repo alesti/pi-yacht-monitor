@@ -5,6 +5,7 @@ import redis
 import smbus
 import time
 import logging
+import traceback
 
 
 logger = logging.getLogger(__name__)
@@ -79,7 +80,7 @@ def readLM75(config):
 
 def readPCF8574_IN(config):
     logger.debug('--------------------')
-    logger('Now reading DigitalIn')
+    logger.debug('Now reading DigitalIn')
     address = int(config["address"],16)
     busnumber = int(config["bus"])
     bus = smbus.SMBus(busnumber)
@@ -194,6 +195,7 @@ while True:
                    readPCF8574_IN(m)
                except:
                    logger.error("Error while reading PCF8574_IN")
+                   traceback.print_exc(file=sys.stdout)
 
             if sensor == "PCF8574_OUT":
                try:
