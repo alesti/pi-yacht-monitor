@@ -1,11 +1,15 @@
 <?php
+/* ERROR REPORTING */
+error_reporting(E_ALL);
+ini_set('display_errors', 1);  
 
+
+session_start();
 if (!isset($section)) $section = "";
 require 'Predis/Autoloader.php';
-require_once("common.php");
 Predis\Autoloader::register();
 $redis = new Predis\Client();
-session_start();
+require_once("lang.php");
 
 if (!isset($_SESSION['login']) || $_SESSION['login'] != true) {
   header("Location: login.php");

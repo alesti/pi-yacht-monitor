@@ -1,7 +1,7 @@
 <?php
 require_once("../inc/head.inc.php");
 
-echo "<h1>".$lang['CONFIG_HOME']."</h1>";
+echo "<h1>".$lang['CONF_HOME']."</h1>";
 
 if (isset($_POST['smtp_save']) && $_POST['smtp_save'] == 'Speichern') {
     $redis->hset("config.email.smtp","server",$_POST['smtp_server']);
