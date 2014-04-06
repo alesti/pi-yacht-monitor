@@ -9,7 +9,7 @@ import traceback
 
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 
 # create a file handler
 handler = logging.FileHandler('/var/log/i2ccollect.log')
