@@ -13,3 +13,4 @@ Das Projekt wird aus drei Teilen bestehen:
 
 - Die Software "yacht-monitor", die man auf dem Raspberry PI installieren kann und die die Überwachung an Bord übernimmt.
   Die Software befindet sich noch im frühen Entwicklungsstadium und kann noch nichts sinnvolles. Sobald sich das ändert, wird es an dieser Stelle bekannt gegeben.
+Ingos branch
