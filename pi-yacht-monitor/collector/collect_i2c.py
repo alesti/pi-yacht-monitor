@@ -24,6 +24,45 @@ logger.addHandler(handler)
 
 r = redis.StrictRedis(host='localhost', port=6379, db=0)
 
+
+def readHORTER_PIC18F13K22_AD(config):
+    address = int(config["address"],16)
+    busnumber=int(config["bus"])
+    bus = smbus.SMBus(busnumber)
+    data = bus.read_i2c_block_data(address,0,11)
+    pointer = data[0]
+    raw0 = data[1] + data[ 2] * 256
+    raw1 = data[3] + data[ 4] * 256
+    raw2 = data[5] + data[ 6] * 256
+    raw3 = data[7] + data[ 8] * 256
+    raw4 = data[9] + data[10] * 256
+    if config["in0-active"] == "1":
+        in_factor = float(config["in0-factor"])
+        in_name = config["in0-name"]
+        voltage = round(raw0 * in_factor,2)
+        storagehandler.save("boat." + in_name,voltage)
+    if config["in1-active"] == "1":
+        in_factor = float(config["in1-factor"])
+        in_name = config["in1-name"]
+        voltage = round(raw1 * in_factor,2)
+        storagehandler.save("boat." + in_name,voltage)
+    if config["in2-active"] == "1":
+        in_factor = float(config["in2-factor"])
+        in_name = config["in2-name"]
+        voltage = round(raw2 * in_factor,2)
+        storagehandler.save("boat." + in_name,voltage)
+    if config["in3-active"] == "1":
+        in_factor = float(config["in3-factor"])
+        in_name = config["in3-name"]
+        voltage = round(raw3 * in_factor,2)
+        storagehandler.save("boat." + in_name,voltage)
+    if config["in4-active"] == "1":
+        in_factor = float(config["in4-factor"])
+        in_name = config["in4-name"]
+        voltage = round(raw4 * in_factor,2)
+        storagehandler.save("boat." + in_name,voltage)
+
+
 # reads data from horter-analog-in-card
 # converts it with factor to human-readable voltage
 # save in redis with name from config
@@ -183,6 +222,12 @@ while True:
                     readPCF8591(m)
                 except:
                    logger.error("Error while reading PCF8591") 
+
+            if sensor == "HORTER_PIC18F13K22_AD":
+                #try:
+                readHORTER_PIC18F13K22_AD(m)
+                #except:
+                #    logger.error("Error while reading HORTER_PIC18F13K22_AD")
 
             if sensor == "LM75":
                try:
