@@ -224,10 +224,10 @@ while True:
                    logger.error("Error while reading PCF8591") 
 
             if sensor == "HORTER_PIC18F13K22_AD":
-                #try:
-                readHORTER_PIC18F13K22_AD(m)
-                #except:
-                #    logger.error("Error while reading HORTER_PIC18F13K22_AD")
+                try:
+                    readHORTER_PIC18F13K22_AD(m)
+                except:
+                    logger.error("Error while reading HORTER_PIC18F13K22_AD")
 
             if sensor == "LM75":
                try:
