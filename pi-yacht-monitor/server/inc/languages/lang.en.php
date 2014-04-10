@@ -46,6 +46,7 @@ $lang['CONF_EMAIL_DESCRIPTION'] = 'Hier werden die Server-Einstellungen für den
 $lang['CONF_EMAIL_SERVER'] = 'Server';
 $lang['CONF_USER_HOME'] = 'Benutzer Zugang';
 $lang['CONF_USER_DESCRIPTION'] = 'Hier werden Username und Passwort zum Einloggen in diese Weboberfläche festgelegt';
+$lang['CONF_SAVEPW_SUCCESS'] = 'Passwort erfolgreich gespeichert';
 
 // I2C Konfiguration
 
