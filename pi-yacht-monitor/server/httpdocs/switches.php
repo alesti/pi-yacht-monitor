@@ -1,5 +1,5 @@
 <?php
-$section = "i2c";
+$section = "switches";
 require_once("../inc/head.inc.php");
 echo "<h1>Schalter</h1>";
 $keys = $redis->keys("config.i2c.*");
