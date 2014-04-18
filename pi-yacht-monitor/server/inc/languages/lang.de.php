@@ -17,6 +17,7 @@ $lang['MENU_HOME'] = 'Startseite';
 $lang['MENU_SWITCH'] = 'Schalter';
 $lang['MENU_CONFIG'] = 'Konfiguration';
 $lang['MENU_I2CCONFIG'] = 'I2C config';
+$lang['MENU_MONITORING'] = 'Monitoring';
 $lang['MENU_INFO'] = 'Info';
 $lang['MENU_NEW'] = 'Neu';
 $lang['MENU_LOGOUT'] = 'Logout';

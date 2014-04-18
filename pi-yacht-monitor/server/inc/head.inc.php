@@ -28,6 +28,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] != true) {
 <li><a href="index.php"><?php echo $lang['MENU_HOME']; ?></a></li>
 <li><a href="switches.php"><?php echo $lang['MENU_SWITCH']; ?></a></li>
 <li><a href="config.php"><?php echo $lang['MENU_CONFIG']; ?></a></li>
+<li><a href="monitoring.php"><?php echo $lang['MENU_MONITORING'];?></a></li>
 <li><a href="i2c.php"><?php echo $lang['MENU_I2CCONFIG']; ?></a>
 <?php
  if ($section == 'i2c') {
